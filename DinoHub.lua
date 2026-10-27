@@ -1,5 +1,5 @@
 
--- 🦖 DINO HUB | เมนูภาษาไทย
+-- 🦖 DINO HUB | English Version
 -- Roblox Studio > StarterPlayer > StarterPlayerScripts > LocalScript
 
 local Players = game:GetService("Players")
@@ -14,20 +14,19 @@ local DARK = Color3.fromRGB(10, 17, 20)
 local PANEL = Color3.fromRGB(20, 29, 35)
 local WHITE = Color3.fromRGB(245, 250, 245)
 
+-- Create ScreenGui
 local gui = Instance.new("ScreenGui")
 gui.Name = "DinoHub"
 gui.ResetOnSpawn = false
 gui.DisplayOrder = 100
 gui.Parent = playerGui
 
--- สร้างมุมโค้ง
 local function round(object, radius)
     local corner = Instance.new("UICorner")
     corner.CornerRadius = UDim.new(0, radius or 10)
     corner.Parent = object
 end
 
--- สร้างเส้นขอบ
 local function outline(object, color, thickness)
     local stroke = Instance.new("UIStroke")
     stroke.Color = color
@@ -35,13 +34,13 @@ local function outline(object, color, thickness)
     stroke.Parent = object
 end
 
--- ปุ่มเปิดเมนูลอย
+-- Floating open button
 local openButton = Instance.new("TextButton")
-openButton.Name = "ปุ่มเปิดเมนู"
+openButton.Name = "OpenMenu"
 openButton.Size = UDim2.fromOffset(90, 75)
 openButton.Position = UDim2.new(0, 14, 0.5, -38)
 openButton.BackgroundColor3 = DARK
-openButton.Text = "🦖\nไดโนฮับ"
+openButton.Text = "DINO\nHUB"
 openButton.TextColor3 = WHITE
 openButton.TextSize = 17
 openButton.Font = Enum.Font.GothamBold
@@ -49,9 +48,9 @@ openButton.Parent = gui
 round(openButton, 14)
 outline(openButton, GREEN, 2)
 
--- หน้าต่างหลักตรงกลางจอ
+-- Main window
 local frame = Instance.new("Frame")
-frame.Name = "หน้าต่างไดโนฮับ"
+frame.Name = "MainWindow"
 frame.Size = UDim2.new(0.88, 0, 0, 390)
 frame.AnchorPoint = Vector2.new(0.5, 0.5)
 frame.Position = UDim2.new(0.5, 0, 0.5, 0)
@@ -66,7 +65,7 @@ sizeLimit.MaxSize = Vector2.new(440, 520)
 sizeLimit.MinSize = Vector2.new(280, 330)
 sizeLimit.Parent = frame
 
--- แถบหัวเมนู
+-- Header
 local header = Instance.new("Frame")
 header.Size = UDim2.new(1, -12, 0, 58)
 header.Position = UDim2.fromOffset(6, 5)
@@ -78,15 +77,17 @@ local logo = Instance.new("TextLabel")
 logo.Size = UDim2.fromOffset(52, 52)
 logo.Position = UDim2.fromOffset(5, 2)
 logo.BackgroundTransparency = 1
-logo.Text = "🦖"
+logo.Text = "D"
+logo.TextColor3 = GREEN
 logo.TextSize = 36
+logo.Font = Enum.Font.GothamBold
 logo.Parent = header
 
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, -100, 0, 32)
 title.Position = UDim2.fromOffset(60, 3)
 title.BackgroundTransparency = 1
-title.Text = "ไดโนฮับ"
+title.Text = "DINO HUB"
 title.TextColor3 = GREEN
 title.TextSize = 23
 title.Font = Enum.Font.GothamBold
@@ -97,7 +98,7 @@ local subtitle = Instance.new("TextLabel")
 subtitle.Size = UDim2.new(1, -70, 0, 20)
 subtitle.Position = UDim2.fromOffset(62, 32)
 subtitle.BackgroundTransparency = 1
-subtitle.Text = "DINO HUB • เมนูควบคุมเกม"
+subtitle.Text = "DINO HUB • Game Control"
 subtitle.TextColor3 = WHITE
 subtitle.TextSize = 11
 subtitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -107,13 +108,14 @@ local closeButton = Instance.new("TextButton")
 closeButton.Size = UDim2.fromOffset(35, 35)
 closeButton.Position = UDim2.new(1, -42, 0, 10)
 closeButton.BackgroundColor3 = Color3.fromRGB(90, 35, 35)
-closeButton.Text = "✕"
+closeButton.Text = "X"
 closeButton.TextColor3 = WHITE
 closeButton.TextSize = 18
+closeButton.Font = Enum.Font.GothamBold
 closeButton.Parent = header
 round(closeButton, 8)
 
--- แถบแท็บ
+-- Tabs
 local tabBar = Instance.new("Frame")
 tabBar.Size = UDim2.new(1, -20, 0, 40)
 tabBar.Position = UDim2.fromOffset(10, 70)
@@ -126,7 +128,7 @@ tabLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 tabLayout.Padding = UDim.new(0, 5)
 tabLayout.Parent = tabBar
 
--- พื้นที่แสดงเนื้อหา
+-- Content area
 local content = Instance.new("Frame")
 content.Size = UDim2.new(1, -20, 1, -155)
 content.Position = UDim2.fromOffset(10, 116)
@@ -168,7 +170,6 @@ local function makePage(name)
     round(tab, 8)
 
     tabs[name] = tab
-
     return page
 end
 
@@ -210,10 +211,10 @@ local function addButton(page, text, callback)
     return button
 end
 
--- สร้างแท็บทั้งสาม
-local home = makePage("หน้าหลัก")
-local playersPage = makePage("ผู้เล่น")
-local settings = makePage("ตั้งค่า")
+-- Create three tabs
+local home = makePage("Home")
+local playersPage = makePage("Players")
+local settings = makePage("Settings")
 
 for name, tab in pairs(tabs) do
     tab.Activated:Connect(function()
@@ -221,32 +222,32 @@ for name, tab in pairs(tabs) do
     end)
 end
 
--- แท็บหน้าหลัก
-addLabel(home, "🦖  ยินดีต้อนรับสู่ DINO HUB")
-addButton(home, "ซ่อนเมนู", function()
+-- Home tab
+addLabel(home, "Welcome to DINO HUB!")
+addButton(home, "Hide Menu", function()
     frame.Visible = false
     openButton.Visible = true
 end)
-addLabel(home, "เลือกแท็บด้านบนเพื่อเปลี่ยนหมวด")
+addLabel(home, "Select a tab above to get started.")
 
--- แท็บผู้เล่น
+-- Players tab
 local speed = 16
 
-local speedButton = addButton(
-    playersPage, "เพิ่มความเร็ว (+14)", function()
-        speed = speed >= 100 and 16 or speed + 14
-        local character = player.Character
-        local humanoid = character
-            and character:FindFirstChildOfClass("Humanoid")
+addButton(playersPage, "Increase Speed (+14)", function()
+    speed = speed >= 100 and 16 or speed + 14
 
-        if humanoid then
-            humanoid.WalkSpeed = speed
-        end
+    local character = player.Character
+    local humanoid = character
+        and character:FindFirstChildOfClass("Humanoid")
+
+    if humanoid then
+        humanoid.WalkSpeed = speed
     end
-)
+end)
 
-addButton(playersPage, "คืนความเร็วปกติ", function()
+addButton(playersPage, "Reset Normal Speed", function()
     speed = 16
+
     local character = player.Character
     local humanoid = character
         and character:FindFirstChildOfClass("Humanoid")
@@ -257,34 +258,47 @@ addButton(playersPage, "คืนความเร็วปกติ", function
 end)
 
 local afk = false
-local afkButton = addButton(
-    playersPage, "สถานะ AFK: ปิด", function()
+local afkButton
+
+afkButton = addButton(
+    playersPage,
+    "AFK Status: OFF",
+    function()
         afk = not afk
         afkButton.Text = afk
-            and "สถานะ AFK: เปิด"
-            or "สถานะ AFK: ปิด"
+            and "AFK Status: ON"
+            or "AFK Status: OFF"
     end
 )
 
-addLabel(playersPage, "AFK เป็นเพียงสถานะ ไม่ป้องกันการถูกเตะ")
+addLabel(playersPage, "AFK is a status indicator only.")
 
 local autoThrow = false
-local throwButton = addButton(
-    playersPage, "โยนอัตโนมัติ: ปิด", function()
+local throwButton
+
+throwButton = addButton(
+    playersPage,
+    "Auto Throw: OFF",
+    function()
         autoThrow = not autoThrow
         throwButton.Text = autoThrow
-            and "โยนอัตโนมัติ: เปิด"
-            or "โยนอัตโนมัติ: ปิด"
+            and "Auto Throw: ON"
+            or "Auto Throw: OFF"
     end
 )
 
--- แท็บตั้งค่า
+addLabel(playersPage, "Auto Throw is a visual toggle only.")
+
+-- Settings tab
 local oldClock = Lighting.ClockTime
 local oldBrightness = Lighting.Brightness
 local night = false
+local nightButton
 
-local nightButton = addButton(
-    settings, "โหมดกลางคืน: ปิด", function()
+nightButton = addButton(
+    settings,
+    "Night Mode: OFF",
+    function()
         night = not night
 
         if night then
@@ -296,20 +310,20 @@ local nightButton = addButton(
         end
 
         nightButton.Text = night
-            and "โหมดกลางคืน: เปิด"
-            or "โหมดกลางคืน: ปิด"
+            and "Night Mode: ON"
+            or "Night Mode: OFF"
     end
 )
 
-addButton(settings, "ปิดเมนู", function()
+addButton(settings, "Close Menu", function()
     frame.Visible = false
     openButton.Visible = true
 end)
 
-addLabel(settings, "ธีม: ดำเขียวนีออน 🦖")
-addLabel(settings, "ลากแถบชื่อด้านบนเพื่อย้ายเมนู")
+addLabel(settings, "Theme: Neon Black & Green")
+addLabel(settings, "Drag the header to move the menu.")
 
--- เปิด/ปิดเมนู
+-- Open and close menu
 closeButton.Activated:Connect(function()
     frame.Visible = false
     openButton.Visible = true
@@ -320,7 +334,7 @@ openButton.Activated:Connect(function()
     openButton.Visible = false
 end)
 
--- ระบบลากด้วยนิ้วหรือเมาส์
+-- Drag support for mouse and touch
 local function makeDraggable(object, handle)
     local dragging = false
     local startInputPosition
@@ -330,6 +344,7 @@ local function makeDraggable(object, handle)
     handle.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.Touch
         or input.UserInputType == Enum.UserInputType.MouseButton1 then
+
             dragging = true
             startInputPosition = input.Position
             startObjectPosition = object.Position
@@ -350,10 +365,14 @@ local function makeDraggable(object, handle)
     end)
 
     UIS.InputChanged:Connect(function(input)
-        if not dragging then return end
+        if not dragging then
+            return
+        end
 
         if activeTouch then
-            if input ~= activeTouch then return end
+            if input ~= activeTouch then
+                return
+            end
         elseif input.UserInputType ~= Enum.UserInputType.MouseMovement then
             return
         end
@@ -372,7 +391,8 @@ end
 makeDraggable(frame, header)
 makeDraggable(openButton, openButton)
 
-showPage("หน้าหลัก")
+-- Initial state
+showPage("Home")
 openButton.Visible = false
 
-print("🦖 DINO HUB โหลดสำเร็จ")
+print("DINO HUB loaded successfully!")
